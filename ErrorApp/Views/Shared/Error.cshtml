@@ -1,0 +1,38 @@
+﻿@{
+    string statusCode = ViewData["StatusCode"]?.ToString();
+    string message = ViewData["Message"]?.ToString();
+    if (string.IsNullOrWhiteSpace(message))
+    {
+        switch (statusCode)
+        {
+            case "400":
+                message = "Bad Request";
+                break;
+            case "404":
+                message = "Not Found";
+                break;
+            case "401":
+                message = "Unauthorized";
+                break;
+            case "403":
+                message = "Forbidden";
+                break;
+            case "500":
+                message = "Internal Server Error";
+                break;
+            default:
+                statusCode = "404";
+                message = "Not Found";
+                break;
+        }
+    }
+
+    ViewData["Title"] = "Error " + statusCode;
+}
+
+<h1 class="text-danger">Error @statusCode</h1>
+<h4 class="text-danger">
+    @message
+</h4>
+
+<!-- ... -->
